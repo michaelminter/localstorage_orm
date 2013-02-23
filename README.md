@@ -1,3 +1,7 @@
+# localStorage ORM
+
+localStorage Object Relation Mapping
+
 ## Data
 Objects should be indexed by id
 
@@ -5,9 +9,13 @@ Objects should be indexed by id
 
 ## Use
 
+Initialize a new model. If no localStorage key (table) is available one is created when the below code is parsed.
+
     var Workorder = new Model('workorders');
 
 ### Where
+
+The following will return all workorders _where_ the created_at date is less than the decalred date variable.
 
     var date = new Date();
     Workorder.where({name:"MichaelMinter",age:28,created_at:date,admin:true},{created_at:'<'})
