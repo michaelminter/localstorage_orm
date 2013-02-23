@@ -23,12 +23,23 @@ Initialize a new model. If no localStorage key (table) is available one is creat
 
     var Workorder = new Model('workorders');
 
+### Find
+
+The following will return the referenced Object that belongs to its associated ID
+
+    Workorder.find(101);
+
 ### Where
 
 The following will return all workorders _where_ the created_at date is less than the decalred _date_ variable.
 
     var date = new Date();
     Workorder.where({name:"MichaelMinter",age:28,created_at:date,admin:true},{created_at:'<'})
+
+__Notes__
+
+* string actually utilizes Regex
+* When searching by a date object, an option is required
 
 ## More
 
