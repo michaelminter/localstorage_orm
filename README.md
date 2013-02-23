@@ -15,7 +15,7 @@ Initialize a new model. If no localStorage key (table) is available one is creat
 
 ### Where
 
-The following will return all workorders _where_ the created_at date is less than the decalred date variable.
+The following will return all workorders _where_ the created_at date is less than the decalred _date_ variable.
 
     var date = new Date();
     Workorder.where({name:"MichaelMinter",age:28,created_at:date,admin:true},{created_at:'<'})
