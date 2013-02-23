@@ -1,6 +1,6 @@
 # localStorage ORM
 
-localStorage Object Relation Mapping
+An Active Record -like localStorage Object-Relational Mapping library.
 
 ## Data
 Objects should be indexed by id
@@ -9,7 +9,7 @@ Objects should be indexed by id
 
 ### Ruby Tip
 
-You can index by a hash by each record's unique ID using the Rails Enumerable method <a href="http://apidock.com/rails/Enumerable/index_by" target="_blank">index_by</a>
+You can index by a hash by each record's unique ID using the Rails Enumerable method: <a href="http://apidock.com/rails/Enumerable/index_by" target="_blank">index_by</a>.
 
 > Convert an enumerable to a hash. 
 
@@ -36,7 +36,7 @@ The following will return all workorders _where_ the created_at date is less tha
     var date = new Date();
     Workorder.where({name:"MichaelMinter",age:28,created_at:date,admin:true},{created_at:'<'})
 
-__Notes__
+### Notes
 
 * __String__ utilizes Regex. Because the lookups are an object you _cannot_ use something like: `{description:"a",description:"b"}` but you _can_ do `{description:"[a-b]"}`
 * __Numbers__ will only search literal integeral values. A variable string type, "1" is not the same as the variable number type, 1.
