@@ -38,8 +38,11 @@ The following will return all workorders _where_ the created_at date is less tha
 
 __Notes__
 
-* string actually utilizes Regex
-* When searching by a date object, an option is required
+* __String__ utilizes Regex. Because the lookups are an object you _cannot_ use something like: `{description:"a",description:"b"}` but you _can_ do `{description:"[a-b]"}`
+* __Numbers__ will only search literal integeral values. So a variable string type of, "1" is not the same as the variable number type of, 1.
+* __Object__ is exclusive to dates and an option object `{due_date:">"}` is required to evaluaute references.
+* __Boolean__ will only search literal boolean values. So `{notifications:true}` is _not_ the same as `{notifications:"true"}`.
+* __Null__ will return any empty, or _null_, values. `null` is not the same as `""`.
 
 ## More
 
