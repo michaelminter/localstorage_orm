@@ -21,7 +21,12 @@ function Model(table){
   }
 
   this.find = function(id){
-    return localStorage.getObject(table)[id];
+    var object = localStorage.getObject(table)[id];
+    if (object == null) {
+      return {};
+    } else {
+      return localStorage.getObject(table)[id];
+    }
   }
 
   this.first = function(){
@@ -55,9 +60,9 @@ function Model(table){
       {
         switch(typeof obj[o])
         {
+          // TODO: add case sensitive/insensitive switch with option marker. default to sensitive.
           case 'string':
-            // string actually utilizes regex (case insensitive)
-            if (_table[t][o] != null && eval('_table[t][o].search(/' + obj[o] + '/i)') > -1)
+            if (_table[t][o] != null && eval('_table[t][o].search(/' + obj[o] + '/)') > -1)
             {
               checkSum.push(true);
             }
@@ -69,7 +74,6 @@ function Model(table){
             }
             break;
           case 'object':
-            // object (date) requires option
             var dateLookup = new Date(_table[t][o]).getTime();
             var dateNow    = new Date().getTime();
 
@@ -140,7 +144,14 @@ function Model(table){
 
   this.update = function(obj){
     var _table = localStorage.getObject(table);
-    _table[obj.id] = obj;
+
+    for (var key in obj) {
+      var value = obj[key];
+      if (isNumber(value)) {
+        value = parseInt(value);
+      }
+      _table[obj.id][key] = value;
+    }
     localStorage.setObject(table, _table);
   }
 
@@ -156,8 +167,8 @@ function Model(table){
 }
 
 if (!Object.keys) {
-  Object.keys = function (obj)
-  {
+  Object.keys = function (obj){
+    "use strict";
     var keys = [];
 
     for (var k in obj) {
@@ -170,13 +181,25 @@ if (!Object.keys) {
   };
 }
 
+function count(object){
+  return Object.keys(object).length
+}
+
+function isNumber(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
 // FIXME: extend: Object #<Object>
 Object.count = function(){ return Object.keys(this).length }
 
 if (window.Storage){
   Storage.prototype.setObject = function(key, value) {
     "use strict";
-    this.setItem(key, JSON.stringify(value));
+    if (value == null) {
+      this.setItem(key, JSON.stringify({}));
+    } else {
+      this.setItem(key, JSON.stringify(value));
+    }
   };
 
   Storage.prototype.getObject = function(key) {
