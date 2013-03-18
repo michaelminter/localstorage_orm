@@ -39,7 +39,7 @@ The following will return all workorders _where_ the created_at date is less tha
 
 ### Variable Types
 
-* __String__ utilizes Regex. Because the lookups are an object you _cannot_ use something like: `{description:"a",description:"b"}` but you _can_ do `{description:"[a-b]"}`
+* __String__ utilizes Regex. Because the lookups are an object you _cannot_ use something like: `{description:"a",description:"b"}` but you _can_ do `{description:"[a-b]"} or {description:"(a|b)"}`
 * __Numbers__ will only search literal integeral values. A variable string type, "1" is not the same as the variable number type, 1.
 * __Object__ is exclusive to dates and an option object `{due_date:">"}` is required to evaluaute references.
 * __Boolean__ will only search literal boolean values. So `{notifications:true}` is _not_ the same as `{notifications:"true"}`.
